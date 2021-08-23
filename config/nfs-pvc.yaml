@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: psql-itwl-dev-01-pv
+  labels: #Labels 
+    app: psql
+    ver: itwl-dev-01-pv 
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 10.0.0.12
+    path: "/Public/k8s-mount"

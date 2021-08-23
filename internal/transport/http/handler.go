@@ -42,7 +42,7 @@ func (h *Handler) SetupRoutes() {
 	h.Router.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
-		if err := json.NewEncoder(w).Encode(Response{Message: "Iam ALIVE !"}); err != nil {
+		if err := sendOkResponse(w, Response{Message: "Iam ALIVE !"}); err != nil {
 			panic(err)
 		}
 	})
@@ -50,9 +50,6 @@ func (h *Handler) SetupRoutes() {
 
 // GetComment - retrieve comment from the comment service by ID
 func (h *Handler) GetComment(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
 	vars := mux.Vars(r)
 	id := vars["id"]
 
@@ -69,7 +66,7 @@ func (h *Handler) GetComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(comment); err != nil {
+	if err := sendOkResponse(w, comment); err != nil {
 		panic(err)
 	}
 }
